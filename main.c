@@ -58,6 +58,7 @@ void inteface(Node* root){
                    printNode(node);
                 else
                     printf("No results");
+                free(key);
                 // newTable2 = getItemByVer2(table2, key, release);
                 // printTable2(newTable2);
                 // delTable2(newTable2);
@@ -83,7 +84,7 @@ void inteface(Node* root){
                     printf("Success!\n");
                 else
                     printf("Can't find\n");
-                
+                free(key);
                 break;
 
             case 6:
@@ -107,9 +108,7 @@ void inteface(Node* root){
                 break;
 
             case 8:
-                timing(1);
-                timing(2);
-                timing(3);
+                timing();
                 break;
 
             case 9:

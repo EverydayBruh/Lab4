@@ -82,7 +82,8 @@ int printTree (Node *root, int step) {
         for (int i = 0; i <= 3; i++)
             printf("-");
     }
-    if(root->key)printf("(%s)\n", root->key);
+    printNode(root);
+    printf("\n");
     if (root->left) printTree(root->left, step + 5);
 }
 

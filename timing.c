@@ -41,66 +41,80 @@ Node* randTree(Node* root, int size)
     return root;
 }
 
-int timing(int n)
+int timing()
 {
     clock_t time1;
     clock_t time2;
     char* s;
+    int k;
+    FILE* fb;
     Node* root = NULL;
-    switch (n)
+    char* key;
+    for(int n = 1; n<=3; n++)
     {
-    case 1:
-        s = "timtingAdd";
-        break;
-    case 2:
-        s = "timtingFind";
-        break;
-    case 3:
-        s = "timtingDelete";
-        break;
-
-    default:
-        printf("Wrong timing code\n");
-        break;
-    }
-    FILE* fb = fopen(s, "w");
-    fprintf(fb, "Tree_Size\tTime\n");
-
-    for(int i = 100000; i<=2000000; i+=100000)
-    {
-        root = randTree(root, 100000);
-        // printTree(root, 0);
         switch (n)
         {
-            case 1:
-                time1 = clock();
-                for (int j = 0; j < 100000; j++)
-                {
-                    addElement(root, randString(10), randString(10));
-                }
-                break;
-            case 2:
-                time1 = clock();
-                int k = 0;
-                for (int j = 0; j < 100000; j++)
-                {
-                    findByKey(root, randString(10), &k, 1);
-                }
-                break;
-            case 3:
-                time1 = clock();
-                for (int j = 0; j < 100000; j++)
-                {
-                    deleteNode(root, randString(10), 1);
-                }
-                break;
+        case 1:
+            s = "timtingAdd";
+            break;
+        case 2:
+            s = "timtingFind";
+            break;
+        case 3:
+            s = "timtingDelete";
+            break;
         }
-        time2 = clock();
-        // fprintf(fb, "%d\t%d\n", i, time2 - time1);
-        fprintf(fb, "%d\t%f\n", i, ( (float) time2 - time1) / CLOCKS_PER_SEC);
         
+        fb = fopen(s, "w");
+        fprintf(fb, "Tree_Size\tTime\n");
+        fclose(fb);
     }
+    for(int i = 20000; i<=400000; i+=20000)
+    {
+        root = randTree(root, 20000);
+        // printTree(root, 0);
+        for(int n = 1; n<=3; n++)
+        {
+            switch (n)
+            {
+                case 1:
+                    s = "timtingAdd";
+                    time1 = clock();
+                    for (int j = 0; j < 1000; j++)
+                    {
+                        addElement(root, randString(10), randString(10));
+                    }
+                    break;
+                case 2:
+                    s = "timtingFind";
+                    time1 = clock();
+                    for (int j = 0; j < 1000; j++)
+                    {
+                        key = randString(10);
+                        k = 0;
+                        findByKey(root, key, &k, 1);
+                        free(key);
+                    }
+                    break;
+                case 3:
+                    s = "timtingDelete";
+                    time1 = clock();
+                    for (int j = 0; j < 1000; j++)
+                    {
+                        key = randString(10);
+                        deleteNode(root, key, 1);
+                        free(key);
+                    }
+                    break;
+            }
+            time2 = clock();
+            // fprintf(fb, "%d\t%d\n", i, time2 - time1);
+            fb = fopen(s, "a");
+            fprintf(fb, "%d\t%f\n", i, ( (float) time2 - time1) / CLOCKS_PER_SEC);
+            fclose(fb);
+        }
+    }
+    free(s);
     freeTree(root);
-    fclose(fb);
     return 1;
 }
