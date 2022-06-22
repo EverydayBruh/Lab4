@@ -173,13 +173,18 @@ Node* spetialSearch(Node* root, KeyType max, int number){
 }
 
 int cutNode(Node* node)
-{
+{   
+    if(!node)
+        return 1;
     Node* parent = node->par;
     int side;
-    if(node == parent->left)
-        side = 0;
-    else
-        side = 1;
+    if(parent)
+    {
+        if(node == parent->left)
+            side = 0;
+        else
+            side = 1;
+    }
 
     if(!(node->left || node->right))
     {
@@ -196,23 +201,39 @@ int cutNode(Node* node)
 
     if(!(node->left && node->right))
     {
+        Node* child;
+        if(node->left)
+            child = node->left;
+        else
+            child = node->right;
+        freeNode(node);
+
         if(!parent)
         {
-            freeNode(node);
-            free(node);
+            node->info = child->info;
+            node->key = child->key;
+            child->info = NULL;
+            child->key = NULL;
+            cutNode(child);
             return 0;
         }
 
         if(node->left)
+        {
+            node->left->par = parent;
             if(side)
                 parent->right = node->left;
             else
                 parent->left = node->left;
+        }
         else
+        {
+            node->right->par = parent;
             if(side)
                 parent->right = node->right;
             else
                 parent->left = node->right;
+        }
         free(node);
         return 0;
     }
@@ -224,6 +245,8 @@ int cutNode(Node* node)
 int deleteNode(Node* root, KeyType key, int number)
 {
     int k = 0;
+    if(!root || !key || number<1)
+        return 1;
     Node* targ = findByKey(root, key, &k, number);
     if(!targ)
         return 1;
@@ -234,7 +257,8 @@ int deleteNode(Node* root, KeyType key, int number)
     }
 
     Node* new = findMax(targ->left, targ->key);
-    
+    if(!new)
+        printf("LMAO WTF HOW????!!\n");
     printText(key);
     printNode(new);
     printf("\n");

@@ -69,9 +69,9 @@ int timing()
         fprintf(fb, "Tree_Size\tTime\n");
         fclose(fb);
     }
-    for(int i = 200000; i<=4000000; i+=200000)
+    for(int i = 20000; i<=400000; i+=20000)
     {
-        root = randTree(root, 200000);
+        root = randTree(root, 20000);
         // printTree(root, 0);
         for(int n = 1; n<=3; n++)
         {
@@ -80,7 +80,7 @@ int timing()
                 case 1:
                     s = "timtingAdd";
                     time1 = clock();
-                    for (int j = 0; j < 100000; j++)
+                    for (int j = 0; j < 10000; j++)
                     {
                         addElement(root, randString(5), randString(5));
                     }
@@ -88,7 +88,7 @@ int timing()
                 case 2:
                     s = "timtingFind";
                     time1 = clock();
-                    for (int j = 0; j < 100000; j++)
+                    for (int j = 0; j < 10000; j++)
                     {
                         key = randString(5);
                         k = 0;
@@ -99,7 +99,8 @@ int timing()
                 case 3:
                     s = "timtingDelete";
                     time1 = clock();
-                    for (int j = 0; j < 1000; j++)
+
+                    for (int j = 0; j < 10000; j++)
                     {
                         key = randString(5);
                         deleteNode(root, key, 1);
@@ -114,7 +115,6 @@ int timing()
             fclose(fb);
         }
     }
-    free(s);
     freeTree(root);
     return 1;
 }
