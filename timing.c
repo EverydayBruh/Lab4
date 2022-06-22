@@ -34,8 +34,8 @@ Node* randTree(Node* root, int size)
 
     for(int i = 0; i < size; i++)
     {
-        key = randString(10);
-        info = randString(10);
+        key = randString(5);
+        info = randString(5);
         root = addElement(root, key, info);
     }
     return root;
@@ -69,9 +69,9 @@ int timing()
         fprintf(fb, "Tree_Size\tTime\n");
         fclose(fb);
     }
-    for(int i = 20000; i<=400000; i+=20000)
+    for(int i = 200000; i<=4000000; i+=200000)
     {
-        root = randTree(root, 20000);
+        root = randTree(root, 200000);
         // printTree(root, 0);
         for(int n = 1; n<=3; n++)
         {
@@ -80,17 +80,17 @@ int timing()
                 case 1:
                     s = "timtingAdd";
                     time1 = clock();
-                    for (int j = 0; j < 1000; j++)
+                    for (int j = 0; j < 100000; j++)
                     {
-                        addElement(root, randString(10), randString(10));
+                        addElement(root, randString(5), randString(5));
                     }
                     break;
                 case 2:
                     s = "timtingFind";
                     time1 = clock();
-                    for (int j = 0; j < 1000; j++)
+                    for (int j = 0; j < 100000; j++)
                     {
-                        key = randString(10);
+                        key = randString(5);
                         k = 0;
                         findByKey(root, key, &k, 1);
                         free(key);
@@ -101,7 +101,7 @@ int timing()
                     time1 = clock();
                     for (int j = 0; j < 1000; j++)
                     {
-                        key = randString(10);
+                        key = randString(5);
                         deleteNode(root, key, 1);
                         free(key);
                     }

@@ -234,6 +234,10 @@ int deleteNode(Node* root, KeyType key, int number)
     }
 
     Node* new = findMax(targ->left, targ->key);
+    
+    printText(key);
+    printNode(new);
+    printf("\n");
     // printNode(new);
     freeNode(targ);
     targ->info = new->info;
